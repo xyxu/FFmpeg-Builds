@@ -8,7 +8,14 @@ ffbuild_enabled() {
 }
 
 ffbuild_dockerbuild() {
-    ./configure
+    local myconf=(
+        --prefix="$FFBUILD_PREFIX"
+        --disable-shared
+        --enable-static
+        --with-pic
+    )
+
+    ./configure "${myconf[@]}"
     make -j$(nproc)
     make install
 }
